@@ -1,0 +1,24 @@
+#!/bin/bash
+
+POSITIONAL=()
+
+while [[ $# -gt 0 ]]; do
+    K="$1"
+
+    case $K in
+    -e|--execute)
+        FILENAME="$2"
+        shift; shift
+        ;;
+    -l|--label)
+        LABELNAME="$2"
+        shift; shift
+        ;;
+    *)
+        POSITIONAL+=("$1")
+        shift
+        ;;
+    esac
+done
+
+set -- "${POSITIONAL[@]}"
