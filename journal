@@ -7,7 +7,7 @@ while [[ $# -gt 0 ]]; do
 
     case $K in
     -e|--execute)
-        FILENAME="$2"
+        ENAME="$2"
         shift; shift
         ;;
     -l|--label)
@@ -22,12 +22,18 @@ while [[ $# -gt 0 ]]; do
 done
 
 set -- "${POSITIONAL[@]}"
+FILENAME="$1"
+touch "$FILENAME"
 
-# echo "$1"
+while true; do
+    echo "\$>"
+    read STDIN
 
-STDOUT=$($SHELL -c "$1")
+    STDOUT=$($SHELL -c "$STDIN")
+    echo "$STDOUT"
 
-echo "#COMMAND:" > output.txt
-echo "$1" >> output.txt
-echo "#OUTPUT:" >> output.txt
-echo "$STDOUT" | sed 's/^/#\t/' >> output.txt
+    echo "#COMMAND:" >> $FILENAME
+    echo "$STDIN" >> $FILENAME
+    echo "#OUTPUT:" >> $FILENAME
+    echo "$STDOUT" | sed 's/^/#\t/' >> $FILENAME
+done
