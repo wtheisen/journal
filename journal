@@ -26,7 +26,7 @@ FILENAME="$1"
 touch "$FILENAME"
 
 while true; do
-    echo "\$>"
+    printf "\$> "
     read STDIN
 
     STDOUT=$($SHELL -c "$STDIN")
