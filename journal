@@ -22,3 +22,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 set -- "${POSITIONAL[@]}"
+
+# echo "$1"
+
+STDOUT=$($SHELL -c "$1")
+
+echo "#COMMAND:" > output.txt
+echo "$1" >> output.txt
+echo "#OUTPUT:" >> output.txt
+echo "$STDOUT" | sed 's/^/#\t/' >> output.txt
